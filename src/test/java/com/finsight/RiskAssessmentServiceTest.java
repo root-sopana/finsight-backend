@@ -1,0 +1,3 @@
+package com.finsight;
+import com.finsight.domain.*;import com.finsight.service.RiskAssessmentService;import org.junit.jupiter.api.Test;import static org.junit.jupiter.api.Assertions.*;
+class RiskAssessmentServiceTest {@Test void strongCompanyGetsLowRisk(){Customer c=new Customer();c.setIndustry("Manufacturing");c.setAnnualRevenue(520000000d);c.setEbitda(92000000d);c.setTotalDebt(160000000d);c.setCashBalance(74000000d);c.setPaymentHistoryScore(88);CreditApplication a=new CreditApplication();a.setCustomer(c);var r=new RiskAssessmentService().assess(a);assertTrue(r.score()>=80);assertEquals("LOW",r.level());}}

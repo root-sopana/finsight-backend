@@ -1,0 +1,1 @@
+package com.finsight.repository; import com.finsight.domain.*; import org.springframework.data.jpa.repository.JpaRepository; import java.util.*; public interface CreditApplicationRepository extends JpaRepository<CreditApplication,Long>{List<CreditApplication> findAllByOrderByCreatedAtDesc(); long countByStatus(ApplicationStatus s);}
