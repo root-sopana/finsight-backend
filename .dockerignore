@@ -2,5 +2,4 @@
 .gitlab
 .idea
 .vscode
-target
 *.log
