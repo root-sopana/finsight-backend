@@ -5,16 +5,26 @@ stages:
 
 test:
   stage: test
+  tags:
+    - pipeline-runner
   script:
     - mvn test
 
 build:
   stage: build
+  tags:
+    - pipeline-runner
   script:
     - mvn clean package -DskipTests
+  artifacts:
+    paths:
+      - target/*.jar
+    expire_in: 1 hour
 
 deploy:
   stage: deploy
+  tags:
+    - pipeline-runner
   script:
     - chmod +x scripts/deploy.sh
     - ./scripts/deploy.sh
