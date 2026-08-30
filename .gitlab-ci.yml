@@ -8,7 +8,7 @@ variables:
 test:
   stage: test
   tags:
-    - pipeline-runner
+    - gitlab-runner
   script:
     - echo "Java version:"
     - java -version
@@ -20,7 +20,7 @@ test:
 deploy:
   stage: deploy
   tags:
-    - pipeline-runner
+    - gitlab-runner
   script:
     - echo "Building Spring Boot application..."
     - mvn clean package -DskipTests
