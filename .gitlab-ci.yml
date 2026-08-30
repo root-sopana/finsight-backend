@@ -1,0 +1,22 @@
+stages:
+  - test
+  - build
+  - deploy
+
+test:
+  stage: test
+  script:
+    - mvn test
+
+build:
+  stage: build
+  script:
+    - mvn clean package -DskipTests
+
+deploy:
+  stage: deploy
+  script:
+    - chmod +x scripts/deploy.sh
+    - ./scripts/deploy.sh
+  only:
+    - main
