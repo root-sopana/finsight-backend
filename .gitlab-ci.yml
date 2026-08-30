@@ -3,11 +3,20 @@ stages:
   - build
   - deploy
 
+variables:
+  JAVA_HOME: "/usr/lib/jvm/java-21-amazon-corretto.x86_64"
+  PATH: "$JAVA_HOME/bin:$PATH"
+
 test:
   stage: test
   tags:
     - pipeline-runner
   script:
+    - echo "Java version:"
+    - java -version
+    - echo "Maven version:"
+    - mvn -version
+    - echo "Running tests..."
     - mvn test
 
 build:
@@ -15,6 +24,7 @@ build:
   tags:
     - pipeline-runner
   script:
+    - echo "Building application..."
     - mvn clean package -DskipTests
   artifacts:
     paths:
@@ -26,6 +36,7 @@ deploy:
   tags:
     - pipeline-runner
   script:
+    - echo "Deploying application..."
     - chmod +x scripts/deploy.sh
     - ./scripts/deploy.sh
   only:
