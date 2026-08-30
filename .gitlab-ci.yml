@@ -1,14 +1,10 @@
 stages:
   - test
-  - build
   - deploy
 
 variables:
   JAVA_HOME: "/usr/lib/jvm/java-21-amazon-corretto.x86_64"
 
-# -------------------------
-# TEST
-# -------------------------
 test:
   stage: test
   tags:
@@ -21,11 +17,8 @@ test:
     - echo "Running tests..."
     - mvn test
 
-# -------------------------
-# BUILD + DOCKER IMAGE
-# -------------------------
-build:
-  stage: build
+deploy:
+  stage: deploy
   tags:
     - pipeline-runner
   script:
@@ -33,19 +26,6 @@ build:
     - mvn clean package -DskipTests
     - echo "Checking generated JAR..."
     - ls -lh target/
-    - echo "Building Docker image..."
-    - docker build -t finsight-backend:latest .
-    - echo "Docker image created:"
-    - docker images finsight-backend
-
-# -------------------------
-# DEPLOY
-# -------------------------
-deploy:
-  stage: deploy
-  tags:
-    - pipeline-runner
-  script:
     - echo "Deploying backend..."
     - chmod +x scripts/deploy.sh
     - ./scripts/deploy.sh
