@@ -20,4 +20,3 @@ deploy:
     - ./scripts/deploy.sh
   only:
     - main
-
