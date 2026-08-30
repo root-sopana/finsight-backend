@@ -6,6 +6,7 @@ test:
   stage: test
   tags:
     - gitlab-runner
+
   script:
     - echo "Java version:"
     - java -version
@@ -14,20 +15,38 @@ test:
     - echo "Running tests..."
     - mvn test
 
+
 deploy:
   stage: deploy
   tags:
     - gitlab-runner
+
   script:
     - echo "Building Spring Boot application..."
     - mvn clean package -DskipTests
+
     - echo "Checking generated JAR..."
     - ls -lh target/
-    - echo "Deploying backend..."
-    - chmod +x scripts/deploy.sh
-    - ./scripts/deploy.sh
+
+    - echo "Stopping old backend container..."
+    - docker stop finsight-backend || true
+    - docker rm finsight-backend || true
+
+    - echo "Building backend Docker image..."
+    - docker build -t finsight-backend:latest .
+
+    - echo "Starting backend..."
+    - docker run -d
+      --name finsight-backend
+      --network finsight-monitoring_default
+      -p 8080:8080
+      -e SPRING_DATASOURCE_URL="$DB_URL"
+      -e SPRING_DATASOURCE_USERNAME="$DB_USERNAME"
+      -e SPRING_DATASOURCE_PASSWORD="$DB_PASSWORD"
+      finsight-backend:latest
+
+    - echo "Backend started"
+    - docker ps
+
   only:
     - main
-
-
-
