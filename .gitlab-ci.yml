@@ -5,7 +5,10 @@ stages:
 
 variables:
   JAVA_HOME: "/usr/lib/jvm/java-21-amazon-corretto.x86_64"
-  
+
+# -------------------------
+# TEST
+# -------------------------
 test:
   stage: test
   tags:
@@ -18,24 +21,38 @@ test:
     - echo "Running tests..."
     - mvn test
 
+# -------------------------
+# BUILD
+# -------------------------
 build:
   stage: build
   tags:
     - pipeline-runner
   script:
-    - echo "Building application..."
+    - echo "Building Spring Boot application..."
     - mvn clean package -DskipTests
+    - echo "Build completed."
+    - ls -lh target/
   artifacts:
     paths:
       - target/*.jar
     expire_in: 1 hour
 
+# -------------------------
+# DEPLOY
+# -------------------------
 deploy:
   stage: deploy
   tags:
     - pipeline-runner
+  needs:
+    - job: build
+      artifacts: true
   script:
-    - echo "Deploying application..."
+    - echo "Checking build artifact..."
+    - ls -lh
+    - ls -lh target/
+    - echo "Starting deployment..."
     - chmod +x scripts/deploy.sh
     - ./scripts/deploy.sh
   only:
