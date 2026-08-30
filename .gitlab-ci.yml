@@ -2,9 +2,6 @@ stages:
   - test
   - deploy
 
-variables:
-  JAVA_HOME: "/usr/lib/jvm/java-21-amazon-corretto.x86_64"
-
 test:
   stage: test
   tags:
