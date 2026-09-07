@@ -5,7 +5,7 @@ stages:
 test:
   stage: test
   tags:
-    - gitlab-runner
+    - Finsight-runner
 
   script:
     - echo "Java version:"
@@ -19,7 +19,7 @@ test:
 deploy:
   stage: deploy
   tags:
-    - gitlab-runner
+    - Finsight-runner
 
   script:
     - echo "Building Spring Boot application..."
