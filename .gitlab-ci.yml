@@ -4,12 +4,13 @@ stages:
 
 variables:
   JAVA_HOME: "/usr/lib/jvm/java-21-amazon-corretto.x86_64"
-  PATH: "$JAVA_HOME/bin:$PATH"
 
 test:
   stage: test
   tags:
     - pipeline-runner
+  before_script:
+    - export PATH="$JAVA_HOME/bin:$PATH"
   script:
     - echo "Java version:"
     - java -version
@@ -22,6 +23,8 @@ deploy:
   stage: deploy
   tags:
     - pipeline-runner
+  before_script:
+    - export PATH="$JAVA_HOME/bin:$PATH"
   script:
     - echo "Building Spring Boot application..."
     - mvn clean package -DskipTests
