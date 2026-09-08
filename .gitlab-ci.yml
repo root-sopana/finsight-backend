@@ -29,7 +29,6 @@ script:
 - echo "Building Spring Boot application..."
 - mvn clean package -DskipTests
 
-```
 - echo "Checking generated JAR..."
 - ls -lh target/
 
@@ -52,7 +51,6 @@ script:
 
 - echo "Backend started"
 - docker ps
-```
 
 only:
 - main
