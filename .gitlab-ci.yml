@@ -48,3 +48,5 @@ deploy:
     - docker ps
   only:
     - main
+
+    
