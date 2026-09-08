@@ -5,7 +5,7 @@ stages:
 test:
   stage: test
   tags:
-    - Finsight-runner
+    - pipeline-runner
 
   script:
     - echo "Java version:"
@@ -19,7 +19,7 @@ test:
 deploy:
   stage: deploy
   tags:
-    - Finsight-runner
+    - pipeline-runner
 
   script:
     - echo "Building Spring Boot application..."
