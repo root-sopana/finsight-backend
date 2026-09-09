@@ -44,7 +44,7 @@ deploy:
         -e SPRING_DATASOURCE_USERNAME="$DB_USERNAME"
         -e SPRING_DATASOURCE_PASSWORD="$DB_PASSWORD"
         finsight-backend:latest
-    - echo "Backend started"
+    - echo "Backend started successfully"
     - docker ps
   only:
     - main
